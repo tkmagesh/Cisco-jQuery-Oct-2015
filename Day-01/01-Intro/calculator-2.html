@@ -14,20 +14,20 @@
         $(document).ready(init);
         function init(){
             $("#btnCalculate").click(calculate);
+            $(":text").keyup(validate)
+        }
+        function validate(){
+            var $this = $(this);
+            if ($this.val() === ''){
+                $this.addClass("invalid");
+            } else {
+                $this.removeClass("invalid");
+            }
         }
         function calculate(){
             var txtN1 = $("#txtNumber1").val(),
                 txtN2 = $("#txtNumber2").val();
-            if (txtN1 === ''){
-                $("#txtNumber1").addClass("invalid");
-            } else {
-                $("#txtNumber1").removeClass("invalid");
-            }
-            if (txtN2 === ''){
-                $("#txtNumber2").addClass("invalid");
-            } else {
-                $("#txtNumber2").removeClass("invalid");
-            }
+
             if (txtN1 === '' || txtN2 === '') return;
 
             var n1 = parseInt($("#txtNumber1").val(),10),
