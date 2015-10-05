@@ -32,6 +32,7 @@
           $(this).toggleClass("completed");
        }
        $("li").click(addTaskItemClick);
+        $("#divMessage").hide();
        $("#btnAdd").click(function(){
            $("<li></li")
                .hide()
@@ -50,9 +51,9 @@
        function displayMessage(msg){
            $("#divMessage")
                .html(msg)
-               .fadeIn('slow')
+               .slideDown('slow')
                .delay(3000)
-               .fadeOut('fast');
+               .slideUp('fast');
        }
     });
 
