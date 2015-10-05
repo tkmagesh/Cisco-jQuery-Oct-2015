@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Calculator</title>
+    <style>
+        .invalid{
+            border: 2px solid red;
+            background-color: lightpink;
+        }
+    </style>
     <script src="jquery-2.1.4.js"></script>
     <script>
         $(document).ready(init);
@@ -35,7 +41,7 @@
     </script>
 </head>
 <body>
-    <input type="text" id="txtNumber1">
+    <input type="text" id="txtNumber1" class="invalid">
     <select id="selectOperation">
         <option value="add">add</option>
         <option value="subtract">subtract</option>
