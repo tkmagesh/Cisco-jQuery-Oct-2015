@@ -3,6 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Calculator</title>
+    <script src="jquery-2.1.4.js"></script>
+    <script>
+        $(document).ready(init);
+        function init(){
+            $("#btnCalculate").click(calculate);
+        }
+        function calculate(){
+            var n1 = parseInt($("#txtNumber1").val(),10),
+                n2 = parseInt($("#txtNumber2").val(),10),
+                operation = $("#selectOperation").val(),
+                result = 0;
+            switch (operation){
+                case "add":
+                    var result = n1 + n2;
+                    break;
+                case "subtract":
+                    var result = n1 - n2;
+                    break;
+                case "multiply":
+                    var result = n1 * n2;
+                    break;
+                case "divide":
+                    var result = n1 / n2;
+                    break;
+            }
+            $("#divResult").html(result);
+        }
+
+
+    </script>
 </head>
 <body>
     <input type="text" id="txtNumber1">
