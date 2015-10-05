@@ -11,47 +11,48 @@
     </style>
     <script src="jquery-2.1.4.js"></script>
     <script>
-        $(document).ready(init);
-        function init(){
-            $("#btnCalculate").click(calculate);
-            $(":text").keyup(validate)
-        }
-        function validate(){
-            var $this = $(this);
-            if ($this.val() === ''){
-                $this.addClass("invalid");
-            } else {
-                $this.removeClass("invalid");
+        (function(){
+            var calculator = {
+                add : function(n1, n2){
+                    return n1 + n2;
+                },
+                subtract : function(n1, n2){
+                    return n1 - n2;
+                },
+                multiply : function(n1, n2){
+                    return n1 * n2;
+                },
+                divide : function(n1, n2){
+                    return n1 / n2;
+                },
+            };
+
+            $(document).ready(init);
+            function init(){
+                $("#btnCalculate").click(calculate);
+                $(":text").keyup(validate)
             }
-        }
-        function calculate(){
-            var txtN1 = $("#txtNumber1").val(),
-                txtN2 = $("#txtNumber2").val();
-
-            if (txtN1 === '' || txtN2 === '') return;
-
-            var n1 = parseInt($("#txtNumber1").val(),10),
-                n2 = parseInt($("#txtNumber2").val(),10),
-                operation = $("#selectOperation").val(),
-                result = 0;
-            switch (operation){
-                case "add":
-                    var result = n1 + n2;
-                    break;
-                case "subtract":
-                    var result = n1 - n2;
-                    break;
-                case "multiply":
-                    var result = n1 * n2;
-                    break;
-                case "divide":
-                    var result = n1 / n2;
-                    break;
+            function validate(){
+                var $this = $(this);
+                if ($this.val() === ''){
+                    $this.addClass("invalid");
+                } else {
+                    $this.removeClass("invalid");
+                }
             }
-            $("#divResult").html(result);
-        }
+            function calculate(){
+                var txtN1 = $("#txtNumber1").val(),
+                    txtN2 = $("#txtNumber2").val();
 
+                if (txtN1 === '' || txtN2 === '') return;
 
+                var n1 = parseInt($("#txtNumber1").val(),10),
+                    n2 = parseInt($("#txtNumber2").val(),10),
+                    operation = $("#selectOperation").val(),
+                    result = calculator[operation](n1, n2);
+                $("#divResult").html(result);
+            }
+        }());
     </script>
 </head>
 <body>
