@@ -15,7 +15,29 @@
         }
     </style>
     <script src="jquery-2.1.4.js"></script>
+    <script>
+    $.fx.speeds.custom = 2000;
+    $(function(){
+       function addTaskItemClick(){
+          $(this).toggleClass("completed");
+       }
+       $("li").click(addTaskItemClick);
+       $("#btnAdd").click(function(){
+           $("<li></li")
+               .hide()
+               .html($("#txtTask").val())
+               .click(addTaskItemClick)
+               .prependTo("#olTaskList")
+               .slideDown();
+       });
+       $("#btnRemoveCompleted").click(function(){
+           $("#olTaskList > li.completed").fadeOut('slow', function(){
+               $(this).remove();
+           });
+       });
+    });
 
+    </script>
 </head>
 <body>
     <h1>Task Manager</h1>
@@ -29,6 +51,7 @@
             <li>Prepare for the project delivery</li>
             <li class="completed">Plan for vacation</li>
         </ol>
+        <div id="divMessage"></div>
     </section>
 </body>
 </html>
