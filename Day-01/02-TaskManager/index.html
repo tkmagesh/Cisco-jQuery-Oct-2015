@@ -13,6 +13,16 @@
             font-style: italic;
             font-weight: bold;
         }
+        #divMessage{
+            position: absolute;
+            bottom: 0px;
+            right : 0px;
+            margin: 5px;
+            border : 2px solid black;
+            padding: 5px;
+            border-radius: 4px;
+            background-color: lightgrey;
+        }
     </style>
     <script src="jquery-2.1.4.js"></script>
     <script>
@@ -29,12 +39,21 @@
                .click(addTaskItemClick)
                .prependTo("#olTaskList")
                .slideDown();
+           displayMessage("A new task is added");
        });
        $("#btnRemoveCompleted").click(function(){
            $("#olTaskList > li.completed").fadeOut('slow', function(){
                $(this).remove();
            });
+           displayMessage("Zero or more completed tasks are removed!");
        });
+       function displayMessage(msg){
+           $("#divMessage")
+               .html(msg)
+               .fadeIn('slow')
+               .delay(3000)
+               .fadeOut('fast');
+       }
     });
 
     </script>
@@ -51,7 +70,7 @@
             <li>Prepare for the project delivery</li>
             <li class="completed">Plan for vacation</li>
         </ol>
-        <div id="divMessage"></div>
+        <div id="divMessage">[Messages will be displayed here]</div>
     </section>
 </body>
 </html>
