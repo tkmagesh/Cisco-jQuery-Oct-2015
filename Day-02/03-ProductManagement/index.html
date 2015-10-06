@@ -17,7 +17,7 @@
     $(function(){
         var templateHtml = $("#productTemplate").html();
         var template = Handlebars.compile(templateHtml);
-
+        $("#productsTable").on("click","#btnRemove", onProductRemove);
         $("#btnSave").click(function(){
             var newProduct = {
                 name : $("#txtName").val(),
@@ -27,6 +27,9 @@
             var productHtml = template(newProduct);
             $("#productsTable tbody").append(productHtml);
         });
+        function onProductRemove(){
+            $(this).parents("tr").remove();
+        }
     });
     </script>
 </head>

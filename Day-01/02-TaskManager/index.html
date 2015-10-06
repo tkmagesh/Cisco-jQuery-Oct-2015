@@ -28,16 +28,17 @@
     <script>
     $.fx.speeds.custom = 2000;
     $(function(){
-       function addTaskItemClick(){
+       function taskItemClick(){
           $(this).toggleClass("completed");
        }
-       $("li").click(addTaskItemClick);
+       $("#olTaskList").on("click", "li", taskItemClick);
+
         $("#divMessage").hide();
-       $("#btnAdd").click(function(){
+
+        $("#btnAdd").click(function(){
            $("<li></li")
                .hide()
                .html($("#txtTask").val())
-               .click(addTaskItemClick)
                .prependTo("#olTaskList")
                .slideDown();
            displayMessage("A new task is added");
