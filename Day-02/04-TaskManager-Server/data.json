@@ -2,11 +2,13 @@
   "tasks": [
     {
       "id": 1,
-      "name": "Watch a movie"
+      "name": "Watch a movie",
+      "isCompleted": false
     },
     {
       "id": 3,
-      "name": "Explore bangalore"
+      "name": "Explore bangalore",
+      "isCompleted": true
     }
   ]
 }

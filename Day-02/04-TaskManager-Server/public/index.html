@@ -29,19 +29,35 @@
     $.fx.speeds.custom = 2000;
     $(function(){
        function taskItemClick(){
-          $(this).toggleClass("completed");
+          var $this = $(this);
+           var taskId = $this.attr("task-id");
+          $.ajax({
+              method : 'PATCH',
+              url : '/tasks/' + taskId,
+              data : JSON.stringify({isCompleted : !$this.hasClass("completed")}),
+              dataType : 'json',
+              contentType : 'application/json',
+              success : function(){
+                $this.toggleClass("completed");
+              }
+          });
+
        }
        $("#olTaskList").on("click", "li", taskItemClick);
         $.getJSON("/tasks", function(tasks){
             tasks.forEach(addToList);
         })
         function addToList(task){
-           $("<li></li")
+           var $taskItem = $("<li></li")
                .hide()
                .html(task.name)
+
                .attr("task-id", task.id)
                .prependTo("#olTaskList")
                .slideDown();
+            if (task.isCompleted)
+                $taskItem.addClass("completed");
+
            displayMessage("A new task is added");
         }
         $("#divMessage").hide();
