@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Manager</title>
+    <script src="jquery-2.1.4.js"></script>
+    <script src="handlebars-v4.0.2.js"></script>
+    <script type="text/template" id="productTemplate">
+        <tr>
+            <td>{{name}}</td>
+            <td>{{units}}</td>
+            <td>{{cost}}</td>
+            <td><input type="button" value="Remove" id="btnRemove"></td>
+        </tr>
+    </script>
+    <script>
+    $(function(){
+        var templateHtml = $("#productTemplate").html();
+        var template = Handlebars.compile(templateHtml);
+
+        $("#btnSave").click(function(){
+            var newProduct = {
+                name : $("#txtName").val(),
+                units : $("#txtUnits").val(),
+                cost : $("#txtCost").val()
+            };
+            var productHtml = template(newProduct);
+            $("#productsTable tbody").append(productHtml);
+        });
+    });
+    </script>
+</head>
+<body>
+    <section class="edit">
+       <h3>New Product</h3>
+       <hr>
+        <input type="text" id="txtName">
+        <input type="text" id="txtUnits">
+        <input type="text" id="txtCost">
+        <input type="button" value="Save" id="btnSave">
+    </section>
+    <hr>
+
+    <section class="list">
+        <table width="50%" id="productsTable">
+           <thead>
+            <tr>
+                <th>Name</th>
+                <th>Units</th>
+                <th>Cost</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+</body>
+</html>

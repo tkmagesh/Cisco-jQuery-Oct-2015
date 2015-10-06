@@ -60,6 +60,7 @@
        $("#btnRemoveCompleted").click(function(){
            $(".taskList  li.completed").fadeOut('slow', function(){
                $(this).remove();
+               $(".taskSection").not($(".taskSection").has("li")).remove();
            });
            displayMessage("Zero or more completed tasks are removed!");
        });
@@ -77,7 +78,7 @@
 
     </script>
     <script type="text/template" id="taskSectionTemplate">
-        <section class="taskCategory">
+        <section class="taskSection">
             <h3>[Category Name]</h3>
             <ol>
 
