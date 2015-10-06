@@ -37,16 +37,28 @@
        $("li").click(addTaskItemClick);
        //$("#divMessage").hide();
        $("#btnAdd").click(function(){
-           $("<li></li")
+           var category = $("#taskCategory").val();
+           var sectionSelector = "section." + category;
+           console.log(sectionSelector);
+           var $section = $(sectionSelector);
+           if ($section.length === 0){
+               var templateHtml = $("#taskSectionTemplate").html();
+               var $template = $(templateHtml);
+               $template.addClass(category);
+               $template.find("h3").html(category);
+               $template.appendTo(".taskList");
+               $section = $(sectionSelector);
+           }
+            $("<li></li")
                .hide()
                .html($("#txtTask").val())
                .click(addTaskItemClick)
-               .prependTo("#olTaskList")
+               .prependTo(sectionSelector + "> ol")
                .slideDown();
            displayMessage("A new task is added");
        });
        $("#btnRemoveCompleted").click(function(){
-           $("#olTaskList > li.completed").fadeOut('slow', function(){
+           $(".taskList  li.completed").fadeOut('slow', function(){
                $(this).remove();
            });
            displayMessage("Zero or more completed tasks are removed!");
@@ -64,6 +76,14 @@
     });
 
     </script>
+    <script type="text/template" id="taskSectionTemplate">
+        <section class="taskCategory">
+            <h3>[Category Name]</h3>
+            <ol>
+
+            </ol>
+        </section>
+    </script>
 </head>
 <body>
     <h1>Task Manager</h1>
@@ -79,25 +99,8 @@
         <input type="button" value="Add Task" id="btnAdd">
         <input type="button" value="Remove Completed" id="btnRemoveCompleted">
         <section class="taskList">
-           <section class="taskCategory">
-                <h3>Personal</h3>
-                <ol id="olTaskList">
 
-                </ol>
-            </section>
-            <section class="taskCategory">
-                <h3>Official</h3>
-                <ol id="olTaskList">
-
-                </ol>
-            </section>
-            <section class="taskCategory">
-                <h3>Recreational</h3>
-                <ol id="olTaskList">
-                </ol>
-            </section>
         </section>
-
         <div id="divMessages"></div>
     </section>
 </body>
