@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Manager</title>
+    <style>
+        li{
+            cursor: pointer;
+        }
+        .completed {
+            color : red;
+            text-decoration: line-through;
+            font-style: italic;
+            font-weight: bold;
+        }
+        #divMessages{
+            position: absolute;
+            bottom: 0px;
+            right : 0px;
+            margin: 5px;
+        }
+        .message{
+            margin: 3px;
+            border : 2px solid black;
+            padding: 5px;
+            border-radius: 4px;
+            background-color: lightgrey;
+        }
+    </style>
+    <script src="jquery-2.1.4.js"></script>
+    <script>
+    $.fx.speeds.custom = 2000;
+    $(function(){
+       function addTaskItemClick(){
+          $(this).toggleClass("completed");
+       }
+       $("li").click(addTaskItemClick);
+       //$("#divMessage").hide();
+       $("#btnAdd").click(function(){
+           $("<li></li")
+               .hide()
+               .html($("#txtTask").val())
+               .click(addTaskItemClick)
+               .prependTo("#olTaskList")
+               .slideDown();
+           displayMessage("A new task is added");
+       });
+       $("#btnRemoveCompleted").click(function(){
+           $("#olTaskList > li.completed").fadeOut('slow', function(){
+               $(this).remove();
+           });
+           displayMessage("Zero or more completed tasks are removed!");
+       });
+       function displayMessage(msg){
+           $("<div>")
+                .addClass("message")
+                .html(msg)
+                .hide()
+                .appendTo("#divMessages")
+               .slideDown('slow')
+               .delay(3000)
+               .slideUp('fast');
+       }
+    });
+
+    </script>
+</head>
+<body>
+    <h1>Task Manager</h1>
+    <hr>
+    <section class="content">
+        <label for="">Task :</label>
+        <input type="text" name="" id="txtTask">
+        <select id="taskCategory">
+            <option value="Personal">Personal</option>
+            <option value="Official">Official</option>
+            <option value="Recreational">Recreational</option>
+        </select>
+        <input type="button" value="Add Task" id="btnAdd">
+        <input type="button" value="Remove Completed" id="btnRemoveCompleted">
+        <section class="taskList">
+           <section class="taskCategory">
+                <h3>Personal</h3>
+                <ol id="olTaskList">
+
+                </ol>
+            </section>
+            <section class="taskCategory">
+                <h3>Official</h3>
+                <ol id="olTaskList">
+
+                </ol>
+            </section>
+            <section class="taskCategory">
+                <h3>Recreational</h3>
+                <ol id="olTaskList">
+                </ol>
+            </section>
+        </section>
+
+        <div id="divMessages"></div>
+    </section>
+</body>
+</html>
