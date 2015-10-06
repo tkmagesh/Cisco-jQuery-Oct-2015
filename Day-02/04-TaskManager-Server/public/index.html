@@ -31,23 +31,46 @@
        function taskItemClick(){
           $(this).toggleClass("completed");
        }
-
-
-        $("#olTaskList").on("click", "li", taskItemClick);
-
-        $("#divMessage").hide();
-
-        $("#btnAdd").click(function(){
+       $("#olTaskList").on("click", "li", taskItemClick);
+        $.getJSON("/tasks", function(tasks){
+            tasks.forEach(addToList);
+        })
+        function addToList(task){
            $("<li></li")
                .hide()
-               .html($("#txtTask").val())
+               .html(task.name)
+               .attr("task-id", task.id)
                .prependTo("#olTaskList")
                .slideDown();
            displayMessage("A new task is added");
+        }
+        $("#divMessage").hide();
+
+        $("#btnAdd").click(function(){
+            var taskName = $("#txtTask").val();
+            var newTaskObj = { name : taskName };
+            $.ajax({
+                method : 'POST',
+                url : '/tasks',
+                dataType : 'json',
+                data : JSON.stringify(newTaskObj),
+                contentType : 'application/json',
+                success : addToList
+            });
        });
        $("#btnRemoveCompleted").click(function(){
-           $("#olTaskList > li.completed").fadeOut('slow', function(){
-               $(this).remove();
+           $("#olTaskList > li.completed").each(function(index, element){
+               var $element = $(element);
+               var taskId = $element.attr("task-id");
+               $.ajax({
+                   method : 'DELETE',
+                   url : '/tasks/' + taskId,
+                   success : function(){
+                       $element.fadeOut('slow', function(){
+                           $(this).remove();
+                       });
+                   }
+               });
            });
            displayMessage("Zero or more completed tasks are removed!");
        });
@@ -71,8 +94,6 @@
         <input type="button" value="Add Task" id="btnAdd">
         <input type="button" value="Remove Completed" id="btnRemoveCompleted">
         <ol id="olTaskList">
-            <li>Prepare for the project delivery</li>
-            <li class="completed">Plan for vacation</li>
         </ol>
         <div id="divMessage">[Messages will be displayed here]</div>
     </section>
