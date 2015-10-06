@@ -1,4 +1,4 @@
-$.fn.showHint = function(options){
+$.fn.showHint = function(options;){
     options = options || {};
     var hintAttr = options.hintAttr || 'hintText';
     $(this).each(function(index, element){
